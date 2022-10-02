@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import Harjoitustyo.BookStore.domain.Book;
 import Harjoitustyo.BookStore.domain.BookRepository;
+import Harjoitustyo.BookStore.domain.CategoryRepository;
 
 
 
@@ -18,6 +19,9 @@ import Harjoitustyo.BookStore.domain.BookRepository;
 public class BookController {
 	@Autowired
 	private BookRepository repository;
+	
+	@Autowired
+	private CategoryRepository crepository;
 	
 		@RequestMapping("/booklist")
 		public String index(Model model) {
@@ -34,6 +38,7 @@ public class BookController {
 		@RequestMapping(value = "/add", method = {RequestMethod.POST, RequestMethod.GET})
 		public String addBook(Model model) {
 			model.addAttribute("book", new Book());
+			model.addAttribute("categories", crepository.findAll());
 			return "addbook";
 		}
 		
