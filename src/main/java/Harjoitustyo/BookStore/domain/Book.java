@@ -6,6 +6,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 public class Book {
@@ -13,8 +16,20 @@ public class Book {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	
 	private long id;
-	private String title, author, isbn;
+	
+	@NotBlank(message = "Enter Title")
+	private String title;
+	
+	@NotBlank(message = "Enter Author")
+	private String author;
+	
+	@NotBlank(message = "Enter ISBN")
+	private String isbn;
+	
+	@Min(value = 1500, message = "Are you sure your book is that old?")
+	@Max(value = 2022, message = "Your book cannot be published in the future.")
 	private int publicationYear;
+	
 	private double price;
 	
 	@ManyToOne
@@ -97,11 +112,18 @@ public class Book {
 	@Override
 	public String toString() {
 		return "Book [id=" + id + ", title=" + title + ", author=" + author + ", isbn=" + isbn + ", publicationYear="
-				+ publicationYear + ", price=" + price + ", category=" + category + "]";
+				+ publicationYear + ", price=" + price + ", category=" + category + ", getId()=" + getId()
+				+ ", getTitle()=" + getTitle() + ", getAuthor()=" + getAuthor() + ", getIsbn()=" + getIsbn()
+				+ ", getPublicationYear()=" + getPublicationYear() + ", getPrice()=" + getPrice() + ", getCategory()="
+				+ getCategory() + ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + ", toString()="
+				+ super.toString() + "]";
 	}
 
 
 	}
+
+
+
 
 
 	
